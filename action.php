@@ -68,7 +68,7 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
 		$title = $fullname . ' updated the Wikipage ' . $INFO['id'];
         $say = '**' . $fullname . '** updated the Wikipage **[' . $INFO['id'] . '](' . $this->urlize() . ')**';
         if ($minor) $say = $say . ' [minor edit]';
-        if ($summary) $say = $say . '\n*' . $summary . '*';
+        if ($summary) $say = $say . PHP_EOL . '*' . $summary . '*';
 
         error_log($say);
         error_log(json_encode($config));
