@@ -65,8 +65,7 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
             }
         }
 
-		$title = $fullname . ' updated the Wikipage ' . $INFO['id'];
-        $say = '**' . $fullname . '** updated the Wikipage **[' . $INFO['id'] . '](' . $this->urlize() . ')**';
+		$say = '**' . $fullname . '** updated the Wikipage **[' . $INFO['id'] . '](' . $this->urlize() . ')**';
         if ($minor) $say = $say . ' [minor edit]';
         if ($summary) $say = $say . PHP_EOL . '*' . $summary . '*';
 
@@ -76,7 +75,6 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
 		$data = array(
 			"icon" 		=> $this->getConf('glip_icon_url'),
 			"activity"	=> $this->getConf('glip_activity'),
-			"title"		=> $title,
 			"body"		=> $say
 		);
         
