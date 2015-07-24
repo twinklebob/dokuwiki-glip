@@ -52,7 +52,7 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
 
         $config = array(
                 'url'       => $this->getConf('glip_url'),
-				'icon_url'	=> $this->getConf('glip_icon_url')
+				'icon_url'	=> $this->getConf('glip_icon_url'),
                 'activity'  => $this->getConf('glip_activity'));
 
         /* Namespace filter */
