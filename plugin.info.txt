@@ -1,7 +1,7 @@
 base   glip
 author David Lumm
 email  david.lumm@twinklebob.co.uk
-date   2015-07-24
+date   2015-08-04
 name   glip plugin
 desc   Notify a glip team on page saves
 url    https://github.com/twinklebob/dokuwiki-glip

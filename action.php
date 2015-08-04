@@ -84,7 +84,7 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
         $http->headers['content-type'] = 'application/json';
         $response = $http->post($this->getConf('glip_url'), $data_string);
         if($response === false) {
-            error_log("Error notifying Glip: " . $http->error)
+            error_log("Error notifying Glip: " . $http->error);
         }
     }
 
