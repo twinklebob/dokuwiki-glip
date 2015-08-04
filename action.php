@@ -69,8 +69,8 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
         if ($minor) $say = $say . ' [minor edit]';
         if ($summary) $say = $say . PHP_EOL . '*' . $summary . '*';
 
-        error_log($say);
-        error_log(json_encode($config));
+        //error_log($say);
+        //error_log(json_encode($config));
 
 		$data = array(
 			"icon" 		=> $this->getConf('glip_icon_url'),
@@ -79,20 +79,12 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
 		);
         
         $data_string = json_encode($data);
-
-        $ch = curl_init($this->getConf('glip_url'));
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_string))
-        );
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-        $result = curl_exec($ch);
-        if ($result === false) {
-            error_log("Error notifying glip: " . curl_error($ch));
+        
+        $http = new DokuHTTPClient();
+        $http->headers['content-type'] = 'application/json';
+        $response = $http->post($this->getConf('glip_url'), $data_string);
+        if($response === false) {
+            error_log("Error notifying Glip: " . $http->error)
         }
     }
 
