@@ -26,21 +26,25 @@ require_once DOKU_PLUGIN.'action.php';
 
 class action_plugin_glip extends DokuWiki_Action_Plugin {
 
-    function register(&$controller) {
+    function register(Doku_Event_Handler $controller) {
        $controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'handle_action_act_preprocess');
     }
 
-    function handle_action_act_preprocess(&$event, $param) {
-
+    function handle_action_act_preprocess(Doku_Event $event, $param) {
+		file_put_contents('php://stderr', 'In handle_action_act_preprocess' . PHP_EOL);
+		file_put_contents('php://stderr', print_r($event->data, true) . PHP_EOL);
         if (isset($event->data['save'])) {
-            if ($event->data['save'] == 'Save') {
+			
+            //if ($event->data['save'] == 'Save') {
+				file_put_contents('php://stderr', 'Is save' . PHP_EOL);
                 $this->handle();
-            }
+            //}
         }
         return;
     }
 
     private function handle() {
+		file_put_contents('php://stderr', 'In handle' . PHP_EOL);
         global $SUM;
         global $INFO;
 
