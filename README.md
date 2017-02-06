@@ -21,5 +21,3 @@ $ git clone https://github.com/twinklebob/dokuwiki-glip.git glip
 ## Thanks
 
 This code was adapted from the Kato DokuWiki plugin https://github.com/kato-im/dokuwiki-kato
-
-If you like it, why not buy me a burger on http://cyberneticdave.tip.me
