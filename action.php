@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DokuWiki Plugin Glip (Action Component)
  *
@@ -14,7 +15,6 @@
  * DokuWiki log: https://github.com/cosmocode/log.git
  * @author  Adrian Lang <lang@cosmocode.de> 2010-03-28
  */
-
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) {
     die();
@@ -88,11 +88,27 @@ class action_plugin_glip extends DokuWiki_Action_Plugin {
         $http->headers['content-type'] = 'application/json';
         $response = $http->post($this->getConf('glip_url'), $data_string);
         if ($response === false) {
-            error_log("Error notifying Glip: " . $http->error);
+            error_log("Error notifying Glip: " . $http->error . " Trying cURL.");
+            // Try curl
+            $ch = curl_init($this->getConf('glip_url'));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string))
+            );
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+
+            $result = curl_exec($ch);
+            if ($result === false) {
+                error_log("Error notifying Glip: " . curl_error($ch));
+            }
         }
     }
 
     /* Make our URLs! */
+
     private function urlize() {
         global $INFO;
         global $conf;
